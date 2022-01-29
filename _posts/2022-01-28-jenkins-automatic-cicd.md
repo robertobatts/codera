@@ -2,11 +2,11 @@
 layout: post
 title: "Building a pipeline used by multiple repositories with Jenkins and Artifactory"
 description: "Automatize the creation of Jenkins jobs for multiple repositories by using a single Jenkinsfile"
-author: sal
+author: robertobatts
 published: true
 featured: true
 categories: [Jenkins, Pipeline, DevOps, CI/CD]
-image: "https://thepracticaldev.s3.amazonaws.com/i/4b8ts5owa282bx330e8l.jpg"
+image: assets/images/2022-01-28-jenkins-automatic-cicd/thumbnail.jpg
 ---
 
 Do you want to use the same pipeline for hundreds of projects without adding a Jenkinsfile to each repo? This guide is for you!
@@ -22,7 +22,7 @@ Eventually I'll test this pipeline on two repositories in which one depends on t
 
 **1. Add a webhook on your BitBucket repositories** to trigger the Jenkins job when a commit is pushed. The URL is just the address of the machine where Jenkins is installed + */bitbucket-hook/*. Make it sure to write the *“/”* at the end of the URL because it’ll not work without it.
 
-![Bitbucket webhook](https://thepracticaldev.s3.amazonaws.com/i/05lggu43zapvyk8dvbol.png)
+![Bitbucket webhook]({{ site.baseurl }}/assets/images/2022-01-28-jenkins-automatic-cicd/1.png)
 
 **2. Create a Jenkins Job** by clicking on *New Item > Bitbucket Team/Project* (you need [Bitbucket Branch Source Plugin](https://wiki.jenkins.io/display/JENKINS/Bitbucket+Branch+Source+Plugin) for this).
 - Put your bitbucket owner and credentials under Projects. Under *Local File* insert "pom.xml", so that Jenkins can recognize to trigger the pipeline for every repository that has a pom.  After doing so, your job will be able to scan automatically all your projects.
@@ -40,7 +40,7 @@ pipeline {
 
 - **Connect your Jenkinsfile to your job**. Go to the job configuration, under *Projects* click on *Add > Remote File Plugin* (you need to install [Remote File Plugin](https://plugins.jenkins.io/remote-file)), then add the informations to access the repo containing your pipeline, and specify the name of the script that you want to be triggerable.
 
-![Remote File Plugin](https://thepracticaldev.s3.amazonaws.com/i/2a4gz9jpkv5fappebvmu.png)
+![Remote File Plugin]({{ site.baseurl }}/assets/images/2022-01-28-jenkins-automatic-cicd/2.png)
 
 From now on, if you want to add one more project, you just have to *Scan Organization Folder*; afterwards the pipeline will be called every time you push to your new repo. You can also automatize the scan operation by easily setting a periodical scan trigger in the configuration page of your *Bitbucket Team/Project*.
 
@@ -49,23 +49,23 @@ From now on, if you want to add one more project, you just have to *Scan Organiz
 
 **1. Configure Maven and JDK** on *Manage Jenkins > Global Tool Configuration*
 
-![Maven Setup](https://thepracticaldev.s3.amazonaws.com/i/ytfj0tcxpsdokqeju63v.png)
+![Maven Setup]({{ site.baseurl }}/assets/images/2022-01-28-jenkins-automatic-cicd/3.png)
 
-| ![JDK Setup](https://thepracticaldev.s3.amazonaws.com/i/2j1mwu7uff2ekhgxuhqu.png) | 
+| ![JDK Setup]({{ site.baseurl }}/assets/images/2022-01-28-jenkins-automatic-cicd/4.png) | 
 |:--:| 
 | <sub><sup> N.B. Use “Install Automatically” only if Jenkins is running on a RedHat machine, otherwise it will throw an IllegalArgumentException</sup></sub> |
 
 **2. Create the repositories on Artifactory**
 - Create a local repository on Artifactory
 
-![Local Repo Artifactory](https://thepracticaldev.s3.amazonaws.com/i/sw919qzfp98lye4ws18d.png)
+![Local Repo Artifactory]({{ site.baseurl }}/assets/images/2022-01-28-jenkins-automatic-cicd/5.png)
 - Create a virtual repository containing the local one
 
-![Virtual Repo Artifactory](https://thepracticaldev.s3.amazonaws.com/i/1nzzisxqbc4zr6522jw6.png)
+![Virtual Repo Artifactory]({{ site.baseurl }}/assets/images/2022-01-28-jenkins-automatic-cicd/6.png)
 
 **3. Configure Artifactory on Jenkins** on *Manage Jenkins > Configure System*
 
-![Artifactory Setup](https://thepracticaldev.s3.amazonaws.com/i/sgqv7b74l6bervvseldp.png)
+![Artifactory Setup]({{ site.baseurl }}/assets/images/2022-01-28-jenkins-automatic-cicd/7.png)
 
 In order to resolve your dependencies from Artifactory when a build is executed on Jenkins, you need to set the settings.xml
 - Generate settings.xml from Artifactory by going on your virtual repository and then *Set Me Up > Generate Maven Settings*
@@ -82,8 +82,8 @@ If you want to use it automatically on multiple projects, you just have to push 
 
 **5. Try it out!** I have two repositories on bitbucket: *jenkins-project1* and *jenkins-project2*. The latter depends on the former, so that I can test whether the dependencies are resolved from Artifactory correctly. Let’s try building project1 and then project2
 
-![Build Project1](https://thepracticaldev.s3.amazonaws.com/i/u2j48s8m6yprbhax2hr9.PNG)
-![Build Project2](https://thepracticaldev.s3.amazonaws.com/i/yzxggbldjoi17k7k2e51.PNG)
+![Build Project1]({{ site.baseurl }}/assets/images/2022-01-28-jenkins-automatic-cicd/8.png)
+![Build Project2]({{ site.baseurl }}/assets/images/2022-01-28-jenkins-automatic-cicd/9.png)
 
 
 Congratulations! You successfully integrated Artifactory and Jenkins with multiple repository by creating only one pipeline. If you want to have a look of the projects that I built on this tutorial, you can find them on [GitHub](https://github.com/robertobatts/jenkins-artifactory-tutorial/).

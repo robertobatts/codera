@@ -10,6 +10,7 @@ samp {
 code {
   font-size: $code-font-size;
   color: $code-color;
+  background: $code-background;
   word-break: break-word;
 
   // Streamline the style when inside anchors to avoid broken underline and more
@@ -40,12 +41,14 @@ pre {
   display: block;
   font-size: $code-font-size;
   color: $pre-color;
+  background: $pre-background;
+  padding: 1.5rem;
 
   // Account for some code outputs that place code tags in pre tags
   code {
     font-size: inherit;
-    color: inherit;
     word-break: normal;
+    color: inherit;
   }
 }
 
