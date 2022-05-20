@@ -4,7 +4,7 @@ title: "Building a pipeline used by multiple repositories with Jenkins and Artif
 description: "Automatize the creation of Jenkins jobs for multiple repositories by using a single Jenkinsfile"
 author: robertobatts
 published: true
-featured: true
+featured: false
 categories: [Jenkins, Pipeline, DevOps, CI/CD]
 image: assets/images/2022-01-28-jenkins-automatic-cicd/thumbnail.jpg
 ---
