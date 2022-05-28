@@ -2,12 +2,13 @@ import React from 'react';
 import useFetch from '../hooks/useFetch';
 import ReviewCard from '../components/ReviewCard';
 import { getReviewsUrl } from '../constants/urls';
+import LoadingCards from '../components/LoadingCards';
 
 export default function Homepage() {
   const { loading, error, data } = useFetch(getReviewsUrl());
 
   if (loading) {
-    return <p>Loading...</p>;
+    return <LoadingCards howMany={2} />;
   }
 
   if (error) {
@@ -15,8 +16,8 @@ export default function Homepage() {
   }
 
   return (
-    <div>
-      {data.map(review => <ReviewCard key={review.id} review={review} isPreview={true}/>)}
-    </div>
+    <>
+      {data.map(review => <ReviewCard key={review.id} review={review} isPreview={true} />)}
+    </>
   );
 }

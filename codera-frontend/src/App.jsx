@@ -1,20 +1,27 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import Homepage from './pages/Homepage';
-import ReviewDetails from './pages/ReviewDetails';
-import Category from './pages/Category';
+import React, { useMemo } from 'react';
+import { BrowserRouter } from 'react-router-dom';
+import { Container, Row, Col } from 'react-bootstrap';
 import SiteHeader from './components/SiteHeader';
+import SideBar from './components/SideBar';
+import RoutedPage from './pages/RoutedPage';
 
 function App() {
+
+  const sidebar = useMemo(() => <SideBar />, []);
+
   return (
     <BrowserRouter>
-      <div className="App">
-        <SiteHeader />
-        <Routes>
-          <Route exact path='/' element={<Homepage />} />
-          <Route path='/details/:id' element={<ReviewDetails />} />
-          <Route path='/category/:id' element={<Category />} />
-        </Routes>
-      </div>
+      <SiteHeader />
+      <Container style={{ marginTop: '60px' }}>
+        <Row xs={12}>
+          <Col xs='auto'>
+            {sidebar}
+          </Col>
+          <Col>
+            <RoutedPage />
+          </Col>
+        </Row>
+      </Container>
     </BrowserRouter>
   );
 }

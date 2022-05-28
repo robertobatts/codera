@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button, Card } from 'react-bootstrap';
 import { BACKEND_PREFIX } from '../constants/urls';
+import './ReviewCard.css';
 
 export default function ReviewCard({ review, isPreview }) {
   const { coverImage, title, body, rating } = review.attributes;
@@ -17,9 +18,9 @@ export default function ReviewCard({ review, isPreview }) {
   };
 
   return (
-    <Card style={{ width: '30rem' }}>
+    <Card className='card-margin'>
       {coverImage.data &&
-        <Card.Img variant='top' src={`${BACKEND_PREFIX}${coverImage.data.attributes.formats.medium.url}`} />
+        <Card.Img style={{height: '200px', objectFit: 'cover'}} variant='top' src={`${BACKEND_PREFIX}${coverImage.data.attributes.formats.large.url}`} />
       }
       <Card.Body>
         <Card.Title>{title}</Card.Title>
