@@ -1,22 +1,22 @@
 import React from 'react';
 import useFetch from '../hooks/useFetch';
 import ReviewCard from '../components/ReviewCard';
-import { REVIEWS_URL } from '../constants/urls';
+import { getReviewsUrl } from '../constants/urls';
 
 export default function Homepage() {
-  const { loading, error, data } = useFetch(`${REVIEWS_URL}?populate=coverImage`);
+  const { loading, error, data } = useFetch(getReviewsUrl());
 
   if (loading) {
     return <p>Loading...</p>;
   }
 
-  if (data.error || error) {
+  if (error) {
     return <p>ERROR!</p>;
   }
 
   return (
     <div>
-      {data.data.map(review => <ReviewCard review={review} />)}
+      {data.map(review => <ReviewCard key={review.id} review={review} isPreview={true}/>)}
     </div>
   );
 }
