@@ -3,6 +3,7 @@ import useFetch from '../hooks/useFetch';
 import ReviewCard from '../components/ReviewCard';
 import { getReviewsUrl } from '../constants/urls';
 import LoadingCards from '../components/LoadingCards';
+import { Fade } from 'react-bootstrap';
 
 export default function Homepage() {
   const { loading, error, data } = useFetch(getReviewsUrl());
@@ -16,8 +17,10 @@ export default function Homepage() {
   }
 
   return (
-    <>
-      {data.map(review => <ReviewCard key={review.id} review={review} isPreview={true} />)}
-    </>
+    <Fade appear={true} in={true}>
+      <div>
+        {data.map(review => <ReviewCard key={review.id} review={review} isPreview={true} />)}
+      </div>
+    </Fade>
   );
 }

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Fade } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 import LoadingCards from '../components/LoadingCards';
 import ReviewCard from '../components/ReviewCard';
@@ -18,6 +19,10 @@ export default function ReviewDetails() {
   }
 
   return (
-    <ReviewCard review={data} isPreview={false} />
+    <Fade appear={true} in={true}>
+      <div>
+        <ReviewCard review={data} isPreview={false} />
+      </div>
+    </Fade>
   );
 }

@@ -2,12 +2,12 @@ import React, { useMemo } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { Container, Row, Col } from 'react-bootstrap';
 import SiteHeader from './components/SiteHeader';
-import SideBar from './components/SideBar';
+import Sidebar from './components/Sidebar';
 import RoutedPage from './pages/RoutedPage';
 
 function App() {
 
-  const sidebar = useMemo(() => <SideBar />, []);
+  const sidebar = useMemo(() => <Sidebar />, []);
 
   return (
     <BrowserRouter>

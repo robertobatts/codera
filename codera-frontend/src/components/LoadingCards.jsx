@@ -6,7 +6,7 @@ const LoadingCard = () => {
     <Card className='card-margin'>
       <Card.Body>
         <Placeholder as={Card.Title} animation="glow">
-          <Placeholder style={{height: '200px'}} xs={12} bg='info' />
+          <Placeholder style={{height: '200px'}} xs={12} />
           <Placeholder xs={6} />
         </Placeholder>
         <Placeholder as={Card.Text} animation="glow">
@@ -24,7 +24,7 @@ export default function LoadingCards({ howMany = 1 }) {
   const getCards = () => {
     const cards = [];
     for (let i = 0; i < howMany; i++) {
-      cards.push(<LoadingCard />);
+      cards.push(<LoadingCard key={i} />);
     }
     return cards;
   }
